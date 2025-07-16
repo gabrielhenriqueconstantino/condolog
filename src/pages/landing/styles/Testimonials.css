@@ -1,0 +1,145 @@
+/* Testimonials.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+.testimonials-section {
+  width: 100%;
+  background-color: aliceblue; /* Fundo sutil para destacar os cards */
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.testimonial-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.testimonial-subtitle {
+  color: #007bff; /* Azul para destaque */
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.testimonial-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #212529; /* Preto suave */
+  max-width: 600px;
+}
+
+.testimonial-carousel {
+  display: flex;
+  gap: 32px; /* Espaçamento entre os cards */
+  max-width: 1200px;
+  /* Para um carrossel real, você usaria transform: translateX(...) aqui */
+  overflow-x: auto; /* Permite scroll horizontal para ver os cards */
+  padding-bottom: 20px; /* Espaço para a barra de rolagem não ficar colada */
+  -ms-overflow-style: none; /* IE e Edge */
+  scrollbar-width: none; /* Firefox */
+}
+/* Oculta a barra de rolagem no Chrome, Safari e Opera */
+.testimonial-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+
+.testimonial-card {
+  flex: 0 0 45%; /* Cada card ocupa 45% do contêiner */
+  max-width: 480px; /* Largura máxima do card */
+  min-width: 320px; /* Largura mínima */
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+.quote-icon {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 60px;
+  color: #e9ecef; /* Cor bem sutil para não brigar com o texto */
+  z-index: 1;
+}
+
+.testimonial-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #495057; /* Cinza escuro para boa legibilidade */
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 2;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid #e9ecef; /* Linha sutil de separação */
+  padding-top: 24px;
+}
+
+.author-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #212529;
+  margin: 0;
+}
+
+.author-role {
+  font-size: 14px;
+  color: #6c757d; /* Cinza mais claro para o cargo */
+  margin: 0;
+}
+
+.testimonial-navigation {
+  margin-top: 40px;
+  display: flex;
+  gap: 16px;
+}
+
+.testimonial-nav-button {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.testimonial-nav-button:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #ffffff;
+  transform: scale(1.1);
+}
