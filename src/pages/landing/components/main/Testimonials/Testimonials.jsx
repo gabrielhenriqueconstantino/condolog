@@ -1,81 +1,152 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Testimonials.css';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaQuoteLeft } from 'react-icons/fa';
 
-// Dados de exemplo. Em uma aplicação real, isso viria de uma API.
 const testimonialsData = [
   {
-    quote: "Desde que implementamos o sistema, a comunicação com os moradores melhorou 100%. A transparência na prestação de contas é o grande diferencial.",
+    id: 1,
+    quote: "Desde que implementamos o CondoLog, a comunicação com os moradores melhorou 100%. A transparência na gestão de encomendas é o grande diferencial.",
     name: 'Mariana Almeida',
-    role: 'Síndica Profissional, Condomínio Praça das Flores',
-    image: 'https://randomuser.me/api/portraits/women/44.jpg' // Substituir por fotos reais
+    role: 'Síndica Profissional',
+    company: 'Condomínio Praça das Flores',
+    image: '/img/testimonials/mariana.jpg',
+    rating: 5
   },
   {
-    quote: "A gestão de inadimplência ficou muito mais simples e automatizada. Reduzimos o tempo gasto com cobranças em mais de 50%. Recomendo!",
+    id: 2,
+    quote: "A gestão de encomendas ficou muito mais simples e automatizada. Reduzimos o tempo gasto em 50% e os moradores adoraram a praticidade.",
     name: 'Carlos Furtado',
-    role: 'Administrador, Condomínio Morada do Sol',
-    image: 'https://randomuser.me/api/portraits/men/32.jpg' // Substituir por fotos reais
+    role: 'Administrador',
+    company: 'Condomínio Morada do Sol',
+    image: '/img/testimonials/carlos.jpg',
+    rating: 5
   },
   {
-    quote: "Como moradora, adoro a facilidade de reservar o salão de festas e participar das enquetes pelo aplicativo. Tudo na palma da mão.",
+    id: 3,
+    quote: "Como moradora, adoro receber notificações quando minhas encomendas chegam. O sistema é intuitivo e resolveu nossos problemas na portaria.",
     name: 'Juliana Costa',
-    role: 'Moradora, Edifício Central Park',
-    image: 'https://randomuser.me/api/portraits/women/33.jpg' // Substituir por fotos reais
+    role: 'Moradora',
+    company: 'Edifício Central Park',
+    image: '/img/testimonials/juliana.jpg',
+    rating: 4
   },
+  {
+    id: 4,
+    quote: "Implementamos em 3 condomínios que administramos e todos tiveram redução de extravios. A assinatura digital foi um divisor de águas.",
+    name: 'Ricardo Mendes',
+    role: 'Gerente de Condomínios',
+    company: 'Imobiliária Horizonte',
+    image: '/img/testimonials/ricardo.jpg',
+    rating: 5
+  }
 ];
 
 const Testimonials = () => {
-  // OBS: A lógica do carrossel (useState, etc.) não foi implementada 
-  // para manter o foco no design (JSX/CSS).
-  // Em um projeto real, você usaria um estado para controlar o slide atual
-  // ou uma biblioteca como Swiper.js.
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slidesToShow = 2;
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => 
+      prev >= testimonialsData.length - slidesToShow ? 0 : prev + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => 
+      prev === 0 ? testimonialsData.length - slidesToShow : prev - 1
+    );
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
 
   return (
-    <section className="testimonials-section">
-      <div className="testimonial-header">
-        <h3 className="testimonial-subtitle">PROVA SOCIAL</h3>
-        <h2 className="testimonial-title">Milhares de condomínios já confiam em nossa solução</h2>
-      </div>
-
-      <div className="testimonial-carousel">
-        {/* Lógica de Carrossel iria aqui. Mostrando apenas um card para o design. */}
-        {/* Em um app real: testimonialsData.map(...) */}
-        
-        <div className="testimonial-card">
-          <FaQuoteLeft className="quote-icon" />
-          <p className="testimonial-text">{testimonialsData[0].quote}</p>
-          <div className="testimonial-author">
-            <img src={testimonialsData[0].image} alt={testimonialsData[0].name} className="author-photo" />
-            <div className="author-info">
-              <p className="author-name">{testimonialsData[0].name}</p>
-              <p className="author-role">{testimonialsData[0].role}</p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Repetindo mais um card para visualização */}
-         <div className="testimonial-card">
-          <FaQuoteLeft className="quote-icon" />
-          <p className="testimonial-text">{testimonialsData[1].quote}</p>
-          <div className="testimonial-author">
-            <img src={testimonialsData[1].image} alt={testimonialsData[1].name} className="author-photo" />
-            <div className="author-info">
-              <p className="author-name">{testimonialsData[1].name}</p>
-              <p className="author-role">{testimonialsData[1].role}</p>
-            </div>
-          </div>
+    <section className="testimonials" aria-label="Depoimentos de clientes">
+      <div className="container">
+        <div className="testimonials-header">
+          <span className="section-subtitle">DEPOIMENTOS</span>
+          <h2 className="section-title">Condomínios que transformaram sua gestão</h2>
+          <p className="section-description">
+            Veja o que síndicos, administradores e moradores têm a dizer sobre sua experiência com o CondoLog
+          </p>
         </div>
 
-      </div>
+        <div className="testimonials-carousel">
+          <div 
+            className="testimonials-track"
+            style={{ 
+              transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` 
+            }}
+          >
+            {testimonialsData.map((testimonial) => (
+              <div key={testimonial.id} className="testimonial-card">
+                <div className="testimonial-content">
+                  <FaQuoteLeft className="quote-icon" aria-hidden="true" />
+                  <div className="rating">
+                    {[...Array(5)].map((_, i) => (
+                      <span 
+                        key={i} 
+                        className={`star ${i < testimonial.rating ? 'filled' : ''}`}
+                        aria-hidden="true"
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                  <blockquote className="testimonial-text">
+                    <p>{testimonial.quote}</p>
+                  </blockquote>
+                </div>
+                <div className="testimonial-author">
+                  <img 
+                    src={testimonial.image} 
+                    alt={`${testimonial.name}, ${testimonial.role}`} 
+                    className="author-image"
+                    width="64"
+                    height="64"
+                    loading="lazy"
+                  />
+                  <div className="author-details">
+                    <p className="author-name">{testimonial.name}</p>
+                    <p className="author-role">{testimonial.role}</p>
+                    <p className="author-company">{testimonial.company}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-      <div className="testimonial-navigation">
-        <button className="testimonial-nav-button prev">
-          <FiChevronLeft size={24} />
-        </button>
-        <button className="testimonial-nav-button next">
-          <FiChevronRight size={24} />
-        </button>
+        <div className="testimonials-controls">
+          <button 
+            className="control-button prev"
+            onClick={prevSlide}
+            aria-label="Depoimento anterior"
+          >
+            <FiChevronLeft size={20} />
+          </button>
+          
+          <div className="pagination-dots">
+            {testimonialsData.slice(0, testimonialsData.length - slidesToShow + 1).map((_, i) => (
+              <button
+                key={i}
+                className={`dot ${i === currentSlide ? 'active' : ''}`}
+                onClick={() => goToSlide(i)}
+                aria-label={`Ir para depoimento ${i + 1}`}
+              />
+            ))}
+          </div>
+          
+          <button 
+            className="control-button next"
+            onClick={nextSlide}
+            aria-label="Próximo depoimento"
+          >
+            <FiChevronRight size={20} />
+          </button>
+        </div>
       </div>
     </section>
   );

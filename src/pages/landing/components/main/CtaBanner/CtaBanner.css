@@ -1,108 +1,237 @@
 /* CtaBanner.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
-.cta-banner-container {
-  display: flex;
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 24px;
-  padding: 40px;
-  margin: 60px 20px;
-  max-width: 1100px;
-  box-shadow: 0 10px 30px rgba(0, 71, 171, 0.1);
-  overflow: hidden; /* Garante que os cantos arredondados sejam aplicados */
-  font-family: 'Inter', sans-serif;
+/* CtaBanner.css - Design Profissional */
+:root {
+  --primary: #4a6cf7;
+  --primary-dark: #3a5ce4;
+  --text-dark: #1e1e1e;
+  --text-medium: #4a5568;
+  --text-light: #718096;
+  --accent-light: #f0f7ff;
+  --white: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.15);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-lg: 1.5rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
 }
 
-/* Seção da Imagem (Esquerda) */
-.cta-image-section {
-  flex-shrink: 0;
-  position: relative;
-  width: 40%;
+/* Layout Base */
+.cta-banner {
+  padding: 2rem 1rem;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.cta-image-background {
+.cta-container {
+  max-width: 72rem;
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Seção de Mídia */
+.cta-media {
+  position: relative;
+  padding: 2rem;
+  min-height: 18rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-light) 0%, #e6f0ff 100%);
+}
+
+.cta-media-background {
   position: absolute;
   width: 90%;
   height: 110%;
-  background-color: #f0f7ff; /* Um azul bem claro */
-  border-radius: 20px;
-  transform: rotate(-10deg);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  transform: rotate(-8deg);
+  opacity: 0.8;
   z-index: 1;
 }
 
-.cta-image {
+.cta-media-foreground {
   position: relative;
-  max-width: 100%;
   z-index: 2;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  width: 100%;
+  max-width: 28rem;
 }
 
-/* Seção do Texto (Direita) */
-.cta-text-section {
-  padding-left: 50px;
-  flex-grow: 1;
+.cta-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+  transition: var(--transition);
 }
 
-.cta-title {
-  font-size: 34px;
+/* Seção de Conteúdo */
+.cta-content {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.cta-headline {
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #1d3557; /* Azul escuro */
   line-height: 1.3;
-  margin-bottom: 16px;
+  color: var(--text-dark);
+  margin-bottom: 1.25rem;
 }
 
-.cta-description {
-  font-size: 18px;
-  color: #495057;
-  margin-bottom: 32px;
+.highlight {
+  color: var(--primary);
+  position: relative;
 }
 
-.cta-button {
-  background-color: #007bff; /* Azul primário */
-  color: #ffffff;
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 0.25rem;
+  left: 0;
+  width: 100%;
+  height: 0.5rem;
+  background: rgba(74, 108, 247, 0.2);
+  border-radius: 1rem;
+  z-index: -1;
+}
+
+.cta-subtext {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-medium);
+  margin-bottom: 2rem;
+  max-width: 32rem;
+}
+
+/* Botão CTA */
+.cta-action {
+  align-self: flex-start;
+  background: var(--primary);
+  color: var(--white);
   border: none;
-  border-radius: 50px; /* Botão em formato de pílula */
-  padding: 14px 28px;
-  font-size: 16px;
-  font-weight: 500;
+  border-radius: 2rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  gap: 0.5rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(74, 108, 247, 0.3);
+  margin-bottom: 2rem;
 }
 
-.cta-button:hover {
-  background-color: #0056b3; /* Azul mais escuro no hover */
+.cta-action:hover {
+  background: var(--primary-dark);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 108, 247, 0.4);
 }
 
-/* Media Query para responsividade em telas menores */
-@media (max-width: 992px) {
-  .cta-banner-container {
-    flex-direction: column;
-    text-align: center;
-    padding: 30px;
-  }
+.cta-action-icon {
+  transition: transform 0.2s ease;
+}
 
-  .cta-image-section {
-    width: 100%;
-    margin-bottom: 40px;
+.cta-action:hover .cta-action-icon {
+  transform: translateX(0.25rem);
+}
+
+/* Selos de Garantia */
+.cta-assurance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.assurance-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.assurance-badge {
+  width: 1.25rem;
+  height: 1.25rem;
+  background: rgba(74, 108, 247, 0.1);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .cta-banner {
+    padding: 3rem 1.5rem;
   }
   
+  .cta-container {
+    flex-direction: row;
+  }
+  
+  .cta-media {
+    flex: 1;
+    min-height: auto;
+    padding: 3rem;
+  }
+  
+  .cta-content {
+    flex: 1;
+    padding: 4rem 3rem;
+  }
+  
+  .cta-headline {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cta-headline {
+    font-size: 2.25rem;
+  }
+  
+  .cta-subtext {
+    font-size: 1.125rem;
+  }
+  
+  .cta-action {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+}
+
+/* Efeitos de Foco para Acessibilidade */
+.cta-action:focus-visible {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+/* Animação sutil para a imagem */
+@media (prefers-reduced-motion: no-preference) {
   .cta-image {
-    max-width: 80%;
+    animation: float 6s ease-in-out infinite;
   }
-
-  .cta-text-section {
-    padding-left: 0;
-  }
-
-  .cta-title {
-    font-size: 28px;
+  
+  @keyframes float {
+    0%, 100% { transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) translateY(0); }
+    50% { transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) translateY(-1rem); }
   }
 }
