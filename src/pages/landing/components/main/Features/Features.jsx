@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import '../../styles/Features.css';
+import './Features.css';
 import { 
   FiPackage, 
   FiEdit2, 

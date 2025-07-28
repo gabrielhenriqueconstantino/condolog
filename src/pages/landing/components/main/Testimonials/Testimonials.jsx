@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Testimonials.css';
+import './Testimonials.css';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaQuoteLeft } from 'react-icons/fa';
 

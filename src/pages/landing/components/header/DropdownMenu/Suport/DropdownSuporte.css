@@ -1,0 +1,412 @@
+:root {
+  --suporte-primary: #3cc082;
+  --suporte-primary-hover: #2fb072;
+  --suporte-primary-light: rgba(60, 192, 130, 0.08);
+  --suporte-whatsapp: #25D366;
+  --suporte-text: #2d3748;
+  --suporte-text-light: #4a5568;
+  --suporte-border: #e2e8f0;
+  --suporte-bg: #ffffff;
+  --suporte-bg-hover: #f8fafc;
+  --suporte-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --suporte-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --suporte-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --suporte-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --suporte-radius: 10px;
+  --suporte-panel-width: 720px;
+}
+
+/* Base Styles */
+.suporte-dropdown {
+  position: static;
+  display: block;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Toggle Button */
+.suporte-dropdown-toggle {
+  background: none;
+  border: none;
+  font-weight: 500;
+  color: var(--suporte-text);
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  transition: var(--suporte-transition);
+  position: relative;
+  border-radius: var(--suporte-radius);
+  font-family: 'Poppins', sans-serif;
+}
+
+.suporte-dropdown-toggle:hover {
+  color: var(--suporte-primary);
+  background-color: var(--suporte-primary-light);
+}
+
+.suporte-dropdown-toggle .suporte-chevron {
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.suporte-chevron-icon {
+  font-size: 0.7rem;
+  color: var(--suporte-text-light);
+  transition: var(--suporte-transition);
+}
+
+.suporte-dropdown-toggle[aria-expanded="true"] {
+  color: var(--suporte-primary);
+  background-color: var(--suporte-primary-light);
+}
+
+.suporte-dropdown-toggle[aria-expanded="true"] .suporte-chevron-icon {
+  color: var(--suporte-primary);
+}
+
+/* Dropdown Panel */
+.suporte-dropdown-panel {
+  position: fixed;
+  left: 29.3%;
+  top: 80px;
+  transform: translateX(-50%);
+  background: var(--suporte-bg);
+  border-radius: var(--suporte-radius);
+  box-shadow: var(--suporte-shadow-lg);
+  padding: 1.5rem;
+  width: var(--suporte-panel-width);
+  display: flex;
+  gap: 2rem;
+  z-index: 1000;
+  will-change: transform, opacity;
+}
+
+/* Speech Bubble Triangle */
+.suporte-speech-bubble {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--suporte-bg);
+  filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.05));
+  z-index: 1;
+}
+
+/* Panel Content */
+.suporte-main-panel {
+  display: flex;
+  gap: 2rem;
+  width: 150%;
+  position: relative;
+  z-index: 2;
+}
+
+.suporte-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.suporte-column-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--suporte-primary);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: block;
+  padding-left: 0.75rem;
+}
+
+.suporte-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.suporte-column li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--suporte-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.suporte-column li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--suporte-primary);
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-out;
+}
+
+.suporte-column li:hover {
+  background-color: var(--suporte-primary-light);
+}
+
+.suporte-column li:hover::before {
+  transform: translateX(0);
+}
+
+.suporte-column li:hover .suporte-feature-icon {
+  transform: translateY(-2px);
+}
+
+.suporte-icon-container {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--suporte-primary-light);
+  border-radius: 8px;
+  transition: var(--suporte-transition);
+}
+
+.suporte-feature-icon {
+  font-size: 1rem;
+  color: var(--suporte-primary);
+  transition: var(--suporte-transition);
+}
+
+.suporte-feature-icon.whatsapp {
+  color: var(--suporte-whatsapp);
+}
+
+.suporte-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.suporte-content strong {
+  font-weight: 500;
+  color: var(--suporte-text);
+  font-size: 0.95rem;
+  transition: var(--suporte-transition);
+}
+
+.suporte-content span {
+  color: var(--suporte-text-light);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  transition: var(--suporte-transition);
+}
+
+.suporte-column li:hover .suporte-content strong {
+  color: var(--suporte-primary-hover);
+}
+
+.suporte-arrow-right {
+  margin-left: auto;
+  color: var(--suporte-text-light);
+  font-size: 0.8rem;
+  transition: var(--suporte-transition);
+}
+
+.suporte-column li:hover .suporte-arrow-right {
+  color: var(--suporte-primary);
+  transform: translateX(2px);
+}
+
+/* Mobile Version */
+.suporte-dropdown.mobile {
+  width: 100%;
+}
+
+.suporte-dropdown.mobile .suporte-dropdown-toggle {
+  width: 100%;
+  justify-content: space-between;
+  padding: 1rem 0;
+  font-size: 1rem;
+  border-radius: 0;
+  border-bottom: 1px solid var(--suporte-border);
+}
+
+.suporte-dropdown.mobile .suporte-dropdown-panel {
+  position: static;
+  width: 100%;
+  box-shadow: none;
+  padding: 0;
+  display: block;
+  transform: none !important;
+}
+
+.suporte-dropdown.mobile .suporte-main-panel {
+  flex-direction: column;
+  gap: 0;
+}
+
+.suporte-dropdown.mobile .suporte-column {
+  margin-bottom: 1.5rem;
+}
+
+.suporte-dropdown.mobile .suporte-column li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--suporte-border);
+  margin: 0;
+  border-radius: 0;
+}
+
+.suporte-dropdown.mobile .suporte-column li::before {
+  display: none;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .suporte-dropdown-panel {
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 100%;
+    transform: none !important;
+    border-radius: 0;
+    border-top: 1px solid var(--suporte-border);
+    box-shadow: none;
+    padding: 1rem;
+    position: fixed;
+    max-height: 70vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: var(--suporte-bg);
+  }
+
+  .suporte-speech-bubble {
+    display: none; /* Remove o triângulo no mobile */
+  }
+
+  .suporte-main-panel {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .suporte-column {
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .suporte-column li {
+    padding: 1rem;
+    margin: 0.25rem 0;
+    border-radius: 8px;
+    background-color: var(--suporte-bg-hover);
+    transition: var(--suporte-transition);
+  }
+
+  .suporte-column li:hover {
+    background-color: var(--suporte-primary-light);
+  }
+
+  .suporte-column li::before {
+    display: none; /* Remove a borda lateral no mobile */
+  }
+
+  .suporte-column-title {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--suporte-bg);
+    z-index: 1;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: var(--suporte-primary);
+  }
+
+  /* Destaque para o WhatsApp */
+  .suporte-whatsapp {
+    background-color: rgba(37, 211, 102, 0.05) !important;
+  }
+  
+  .suporte-whatsapp:hover {
+    background-color: rgba(37, 211, 102, 0.1) !important;
+  }
+
+  /* Melhorias para dispositivos muito pequenos */
+  @media (max-width: 480px) {
+    .suporte-dropdown-panel {
+      padding: 0.75rem;
+      max-height: 65vh;
+    }
+
+    .suporte-column li {
+      padding: 0.85rem;
+    }
+
+    .suporte-icon-container {
+      width: 28px;
+      height: 28px;
+    }
+
+    .suporte-feature-icon {
+      font-size: 0.9rem;
+    }
+
+    .suporte-content strong {
+      font-size: 0.9rem;
+    }
+
+    .suporte-content span {
+      font-size: 0.8rem;
+    }
+  }
+
+  /* Ajustes para tablets em modo paisagem */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .suporte-dropdown-panel {
+      max-height: 50vh;
+      top: auto;
+      bottom: 100%;
+      border-top: none;
+      border-bottom: 1px solid var(--suporte-border);
+    }
+  }
+
+  /* Melhorias de acessibilidade para touch */
+  .suporte-column li {
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Feedback visual para toque */
+  .suporte-column li:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  /* Ajuste para ícones no mobile */
+  .suporte-feature-icon.whatsapp {
+    font-size: 1rem; /* Tamanho ligeiramente maior para o WhatsApp */
+  }
+
+  /* Espaçamento entre colunas no mobile */
+  .suporte-column:not(:last-child) {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--suporte-border);
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/CtaBanner.css';
+import './CtaBanner.css';
 import { FiArrowRight } from 'react-icons/fi'; // Usando um ícone para o botão
 
 

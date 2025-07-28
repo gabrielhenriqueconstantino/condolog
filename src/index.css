@@ -5,4 +5,5 @@ body {
     top: 0;
     font-family: 'Poppins', sans-serif;
     background-color: aliceblue;
+    overflow-x: hidden;
 }
