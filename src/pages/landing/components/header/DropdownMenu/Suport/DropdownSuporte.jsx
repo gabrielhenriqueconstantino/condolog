@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const DropdownSuporte = ({ mobile, closeMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [activePanel, setActivePanel] = useState(null);
   const dropdownRef = useRef(null);
   const timeoutRef = useRef(null);
