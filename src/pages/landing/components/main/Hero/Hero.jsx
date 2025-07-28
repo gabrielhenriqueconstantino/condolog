@@ -6,7 +6,7 @@ const Hero = () => {
     <section className="hero-section">
       <div className="hero-container">
         <div className="hero-content">
-          <p className="hero-subtitle">Já são milhares de portarias organizadas com o CondoLog</p>
+          <p className="hero-subtitle">Já são centenas de portarias organizadas com o CondoLog</p>
           
           <h1 className="hero-title">
             A forma mais segura de <span>gerenciar encomendas</span> no seu condomínio
