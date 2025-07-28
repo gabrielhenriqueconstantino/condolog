@@ -37,11 +37,6 @@ const featuresData = [
     title: 'Relatórios personalizados',
     description: 'Gere relatórios completos sobre todas as movimentações do condomínio.',
   },
-  {
-    icon: <FiEdit2 size={20} />,
-    title: 'Controle de visitantes',
-    description: 'Registre e gerencie todas as entradas e saídas de visitantes.',
-  }
 ];
 
 const Features = () => {
