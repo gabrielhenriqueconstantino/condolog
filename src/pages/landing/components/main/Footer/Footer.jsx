@@ -114,17 +114,6 @@ const Footer = () => {
           <p className="copyright">
             © {new Date().getFullYear()} CondoLog Tecnologia Ltda. CNPJ: 12.345.678/0001-99. Todos os direitos reservados.
           </p>
-          
-          <div className="footer-payments">
-            <span>Métodos de pagamento:</span>
-            <div className="payment-methods">
-              <img src="/img/payments/visa.svg" alt="Visa" width="40" height="25" loading="lazy" />
-              <img src="/img/payments/mastercard.svg" alt="Mastercard" width="40" height="25" loading="lazy" />
-              <img src="/img/payments/amex.svg" alt="American Express" width="40" height="25" loading="lazy" />
-              <img src="/img/payments/boleto.svg" alt="Boleto" width="40" height="25" loading="lazy" />
-              <img src="/img/payments/pix.svg" alt="PIX" width="40" height="25" loading="lazy" />
-            </div>
-          </div>
         </div>
       </div>
     </footer>

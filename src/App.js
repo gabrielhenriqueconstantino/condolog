@@ -1,23 +1,17 @@
-import Header from "./pages/landing/components/header/Header";
-import Hero from "./pages/landing/components/main/Hero/Hero"
-import Features from "./pages/landing/components/main/Features/Features";
-import CtaBanner from "./pages/landing/components/main/CtaBanner/CtaBanner";
-import Testimonials from "./pages/landing/components/main/Testimonials/Testimonials";
-import Footer from "./pages/landing/components/main/Footer/Footer";
-
-//import Dashboard from "./pages/admin/dashboard/layout/Dashboard";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LayoutLanding from "./pages/landing/layout/LayoutLanding.jsx";
+import Login from "./pages/Login/Login.jsx";
+// import Dashboard from "./pages/admin/dashboard/layout/Dashboard";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Hero />
-      <Features />
-      <CtaBanner />
-      <Testimonials />
-      <Footer />
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LayoutLanding />} />
+        <Route path="/login" element={<Login />} />
+        {/* Outras rotas */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

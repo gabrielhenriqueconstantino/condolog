@@ -1,0 +1,367 @@
+/* FormContact.css - Design Profissional */
+:root {
+  --primary: #4a6cf7;
+  --primary-dark: #3a5ce4;
+  --primary-light: rgba(74, 108, 247, 0.1);
+  --dark: #1e293b;
+  --darker: #0f172a;
+  --text: #475569;
+  --text-light: #64748b;
+  --light: #f1f5f9;
+  --lighter: #f8fafc;
+  --white: #ffffff;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
+}
+
+/* Layout Base */
+.contact-form-section {
+  background-color: var(--lighter);
+  padding: 4rem 1rem;
+}
+
+.contact-form-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.contact-form-content {
+  padding: 3rem 2rem;
+}
+
+.contact-benefits {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabeçalho do Formulário */
+.form-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.form-subtitle {
+  font-size: 1.125rem;
+  color: var(--text);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Elementos do Formulário */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-input, .form-textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.phone-input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.country-code {
+  padding: 0 0.75rem;
+  background: var(--light);
+  color: var(--text-light);
+  font-size: 0.9375rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.phone-input-group input {
+  border: none;
+  border-radius: 0;
+  flex: 1;
+}
+
+/* Radio Buttons Estilizados */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.radio-option:hover {
+  border-color: var(--primary);
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 1rem;
+  margin-top: 0.25rem;
+}
+
+.radio-content {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.radio-icon {
+  color: var(--primary);
+  font-size: 1.25rem;
+  margin-top: 0.125rem;
+}
+
+.radio-title {
+  font-weight: 600;
+  color: var(--dark);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.radio-description {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  display: block;
+}
+
+/* Botão de Envio */
+.submit-button {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.submit-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.button-icon {
+  font-size: 1.25rem;
+}
+
+/* Disclaimer */
+.form-disclaimer {
+  font-size: 0.8125rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.form-disclaimer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.form-disclaimer a:hover {
+  text-decoration: underline;
+}
+
+/* Seção de Benefícios */
+.benefits-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.benefits-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.benefits-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.benefit-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.benefit-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--white);
+  margin-top: 0.125rem;
+}
+
+.benefit-item h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.benefit-item p {
+  font-size: 0.9375rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.benefits-testimonial {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-top: auto;
+}
+
+.testimonial-content p {
+  font-style: italic;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.testimonial-content p::before {
+  content: '"';
+  font-size: 3rem;
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  opacity: 0.2;
+  line-height: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-weight: 600;
+}
+
+.author-role {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .contact-form-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .contact-form-content {
+    padding: 4rem 3rem;
+  }
+  
+  .contact-benefits {
+    padding: 4rem 3rem;
+  }
+  
+  .form-header {
+    text-align: left;
+  }
+  
+  .form-title {
+    font-size: 2rem;
+  }
+}
+
+/* Acessibilidade */
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
