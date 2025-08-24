@@ -1,0 +1,54 @@
+/* Backdrop e card */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  display: grid; place-items: center;
+  padding: 1rem;
+  z-index: 999;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  overflow: hidden;
+}
+
+/* OcrReader */
+.ocr-wrap { padding: 1rem; }
+.ocr-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .5rem; margin-bottom: .5rem;
+}
+.ocr-close {
+  border: 0; background: #e2e8f0; color: #0f172a;
+  padding: .5rem .75rem; border-radius: 10px; cursor: pointer;
+}
+.ocr-input {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%; height: 48px; border: 2px dashed #06b6d4; border-radius: 12px;
+  color: #0e7490; font-weight: 600; cursor: pointer; margin: .5rem 0 1rem;
+}
+.ocr-input input { display: none; }
+.ocr-preview {
+  width: 100%; max-height: 50vh; object-fit: contain;
+  border-radius: 12px; background: #f8fafc;
+}
+.ocr-action {
+  margin-top: .75rem; width: 100%; height: 48px;
+  background: #06b6d4; color: #fff; border: 0; border-radius: 12px;
+  font-weight: 700; cursor: pointer;
+}
+.ocr-action:disabled { opacity: .6; cursor: not-allowed; }
+.ocr-output {
+  margin-top: .75rem; background: #f1f5f9; padding: .75rem; border-radius: 12px;
+  white-space: pre-wrap; max-height: 35vh; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Mobile-first */
+@media (max-width: 480px) {
+  .modal-card { border-radius: 20px; }
+  .ocr-preview { max-height: 45vh; }
+}

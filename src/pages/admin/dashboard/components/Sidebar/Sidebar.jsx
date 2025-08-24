@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import '../styles/Sidebar.css'
+import './Sidebar.css'
 import { 
-  FiHome, 
-  FiPieChart, 
-  FiUsers, 
-  FiSettings, 
-  FiMail, 
-  FiCalendar,
+  FiBox,          // encomendas
+  FiClipboard,    // logs/registro
+  FiDatabase,     // dados gerais
+  FiUsers,        // moradores
+  FiMessageSquare,// mensagens
+  FiSettings,     // configurações
   FiChevronLeft,
   FiMenu
 } from 'react-icons/fi';
@@ -16,12 +16,12 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const menuItems = [
-    { name: 'Dashboard', icon: <FiHome /> },
-    { name: 'Analytics', icon: <FiPieChart /> },
-    { name: 'Users', icon: <FiUsers /> },
-    { name: 'Messages', icon: <FiMail /> },
-    { name: 'Calendar', icon: <FiCalendar /> },
-    { name: 'Settings', icon: <FiSettings /> }
+    { name: 'Cadastrar/Entregar', icon: <FiBox /> },
+    { name: 'Logs de retirada', icon: <FiClipboard /> },
+    { name: 'Dados', icon: <FiDatabase /> },
+    { name: 'Moradores', icon: <FiUsers /> },
+    { name: 'Mensagens', icon: <FiMessageSquare /> },
+    { name: 'Configurações', icon: <FiSettings /> }
   ];
 
   const toggleSidebar = () => {

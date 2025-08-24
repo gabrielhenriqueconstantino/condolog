@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LayoutLanding from "./pages/landing/layout/LayoutLanding.jsx";
-import Login from "./pages/Login/Login.jsx";
-// import Dashboard from "./pages/admin/dashboard/layout/Dashboard";
+import Login from "./pages/admin/Login/Login.jsx";
+import Dashboard from "./pages/admin/Dashboard/layout/Dashboard.jsx"; // 👈 importe aqui
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutLanding />} />
         <Route path="/login" element={<Login />} />
-        {/* Outras rotas */}
+        <Route path="/dashboard" element={<Dashboard />} /> {/* 👈 rota adicionada */}
       </Routes>
     </BrowserRouter>
   );

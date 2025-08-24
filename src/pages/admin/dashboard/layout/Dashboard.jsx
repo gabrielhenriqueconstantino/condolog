@@ -1,34 +1,34 @@
-import React from "react";
-import Sidebar from "../components/Sidebar";
-import './Dashboard.css';
-import { FiPlus, FiPackage } from "react-icons/fi";
+import { useState } from "react";
+import Sidebar from "../components/Sidebar/Sidebar";
+import BtnCadastro from "../components/CadastroOuRetirada/Cadastro/BtnCadastro";
+import BtnRetirada from "../components/CadastroOuRetirada/Retirada/BtnRetirada";
+import OcrReader from "../components/OCR/CadastroEncomenda/OcrCadastro";
 
 const Dashboard = () => {
-    return (
-        <div className="dashboard-container">
-            <Sidebar />
-            
-            <main className="main-content">
-                <div className="buttons-container">
-                    {/* Botão Cadastrar Encomenda */}
-                    <button className="dashboard-button">
-                        <div className="button-circle">
-                            <FiPlus className="button-icon" />
-                        </div>
-                        <span className="button-text">Cadastrar encomenda</span>
-                    </button>
-                    
-                    {/* Botão Entregar Encomenda */}
-                    <button className="dashboard-button">
-                        <div className="button-circle">
-                            <FiPackage className="button-icon" />
-                        </div>
-                        <span className="button-text">Entregar encomenda</span>
-                    </button>
-                </div>
-            </main>
+  const [showOcr, setShowOcr] = useState(false);
+
+  const handleCadastrar = () => setShowOcr(true);
+  const handleEntregar = () => {
+    // lógica futura da retirada
+    console.log("Retirada de encomenda");
+  };
+
+  return (
+    <div className="Dashboard">
+      <Sidebar />
+      <BtnCadastro onCadastrar={handleCadastrar} />
+      <BtnRetirada onEntregar={handleEntregar} />
+
+      {/* Modal do OCR */}
+      {showOcr && (
+        <div className="modal-backdrop" onClick={() => setShowOcr(false)}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <OcrReader onClose={() => setShowOcr(false)} />
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default Dashboard;
