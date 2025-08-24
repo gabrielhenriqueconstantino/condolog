@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LayoutLanding from "./pages/landing/layout/LayoutLanding.jsx";
 import Login from "./pages/admin/Login/Login.jsx";
-import Dashboard from "./pages/admin/Dashboard/DashLayout/Dashboard.jsx"
+import Dashboard from './pages/admin/Operacional/layout/Dashboard.jsx';
 
 function App() {
   return (
