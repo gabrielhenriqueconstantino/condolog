@@ -24,15 +24,14 @@
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Reset e tipografia */
-
 /* Modal Backdrop e Card */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.7);
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
   z-index: 10000;
   animation: fadeIn 0.2s ease-out;
@@ -41,15 +40,15 @@
 
 .modal-card {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   background: var(--background);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
   animation: scaleIn 0.2s ease-out;
-  max-height: 90vh;
   display: flex;
   flex-direction: column;
+  max-height: 90vh;
 }
 
 @keyframes fadeIn {
@@ -69,6 +68,7 @@
   border-bottom: 1px solid var(--border);
   background: var(--surface);
   position: relative;
+  flex-shrink: 0;
 }
 
 .ocr-title {
@@ -187,80 +187,28 @@
   color: var(--text-primary);
 }
 
-/* Guia de câmera */
-.camera-guide {
+/* Instruções da câmera */
+.camera-instruction {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin: 1rem 0;
-  position: relative;
-  min-height: 200px;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
 }
 
-.barcode-guide-frame {
-  width: 80%;
-  max-width: 300px;
-  height: 150px;
-  border: 2px solid var(--primary);
-  border-radius: 12px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.document-guide-frame {
-  width: 90%;
-  max-width: 320px;
-  height: 180px;
-  border: 2px dashed var(--primary);
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.document-guide-text {
+.camera-icon {
+  font-size: 2.5rem;
   color: var(--primary);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
-.guide-corner {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--primary);
-}
-
-.guide-corner.top-left {
-  top: -2px;
-  left: -2px;
-  border-right: none;
-  border-bottom: none;
-}
-
-.guide-corner.top-right {
-  top: -2px;
-  right: -2px;
-  border-left: none;
-  border-bottom: none;
-}
-
-.guide-corner.bottom-left {
-  bottom: -2px;
-  left: -2px;
-  border-right: none;
-  border-top: none;
-}
-
-.guide-corner.bottom-right {
-  bottom: -2px;
-  right: -2px;
-  border-left: none;
-  border-top: none;
+.camera-instruction p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
 }
 
 /* Input de imagem */
@@ -658,34 +606,128 @@
 }
 
 /* Responsividade para mobile */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .modal-backdrop {
     padding: 0.5rem;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+  
+  .modal-card {
+    max-height: calc(100vh - 1rem);
+    margin: 0.5rem 0;
   }
   
   .ocr-header {
     padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
   
   .ocr-content {
     padding: 1.25rem;
+    gap: 1.25rem;
+  }
+  
+  .phase-indicator {
+    margin-bottom: 0.25rem;
+  }
+  
+  .phase-dot {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+  
+  .phase-line {
+    width: 20px;
+  }
+  
+  .ocr-title h3 {
+    font-size: 1.1rem;
+  }
+  
+  .step-guide {
+    padding: 0.875rem;
+  }
+  
+  .step-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+  
+  .step-text {
+    font-size: 0.9rem;
+  }
+  
+  .camera-instruction {
+    padding: 1.25rem;
+  }
+  
+  .camera-icon {
+    font-size: 2rem;
   }
   
   .form-actions {
     flex-direction: column;
   }
   
-  .camera-guide {
-    min-height: 160px;
+  .form-section h3 {
+    font-size: 1rem;
   }
   
-  .barcode-guide-frame {
-    width: 90%;
-    height: 120px;
+  .confirm-screen h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
   }
   
-  .document-guide-frame {
-    width: 95%;
-    height: 150px;
+  .success-icon {
+    font-size: 3rem;
+  }
+  
+  .progress-indicator {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .progress-circle {
+    font-size: 0.9rem;
+  }
+  
+  .final-actions {
+    gap: 0.5rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 360px) {
+  .ocr-content {
+    padding: 1rem;
+  }
+  
+  .phase-dot {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .phase-line {
+    width: 15px;
+  }
+  
+  .step-guide {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }

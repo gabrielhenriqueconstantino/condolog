@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { useState, useRef, useEffect } from "react";
 import Quagga from "quagga";
 import Tesseract from "tesseract.js";
@@ -19,13 +18,12 @@ import "./ModalCadastro.css";
 export default function OcrReader({ onClose, onTextExtracted }) {
   const [preview, setPreview] = useState(null);
   const [barcodeResult, setBarcodeResult] = useState("");
-  // eslint-disable-next-line no-unused-vars
   const [recipientText, setRecipientText] = useState("");
   const [loading, setLoading] = useState(false);
   const [isCameraAccessing, setIsCameraAccessing] = useState(false);
   const [error, setError] = useState("");
   const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState("barcode"); // "barcode" | "success" | "recipient" | "recipientOcr" | "recipientSuccess" | "confirm" | "final"
+  const [phase, setPhase] = useState("barcode");
   const [extractedData, setExtractedData] = useState({
     nome: "",
     endereco: "",
@@ -33,6 +31,25 @@ export default function OcrReader({ onClose, onTextExtracted }) {
     observacoes: ""
   });
   const fileInputRef = useRef(null);
+  const modalRef = useRef(null);
+
+  // Efeito para garantir que o modal esteja sempre visível
+  useEffect(() => {
+    const handleResize = () => {
+      if (modalRef.current) {
+        const modal = modalRef.current;
+        const viewportHeight = window.innerHeight;
+        modal.style.maxHeight = `${viewportHeight - 40}px`;
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Solicitação da câmera
   const handleCameraClick = async () => {
@@ -42,16 +59,8 @@ export default function OcrReader({ onClose, onTextExtracted }) {
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { facingMode: "environment" } 
       });
-      // Criar preview da câmera em tempo real
-      const video = document.createElement('video');
-      video.srcObject = stream;
-      video.play();
-      
-      // Adicionar listener para captura automática quando detectar código de barras
-      setTimeout(() => {
-        stream.getTracks().forEach(track => track.stop());
-        fileInputRef.current?.click();
-      }, 1000);
+      stream.getTracks().forEach(track => track.stop());
+      fileInputRef.current?.click();
     } catch {
       setError("Permissão da câmera negada. Você pode enviar uma imagem existente.");
       fileInputRef.current?.removeAttribute("capture");
@@ -204,7 +213,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
       const result = await Tesseract.recognize(image, "por", { 
         logger: m => {
           if (m.status === "recognizing text") {
-            setProgress(Math.min(90, m.progress * 100));
+            setProgress(Math.min(90, Math.floor(m.progress * 100)));
           }
         } 
       });
@@ -279,7 +288,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
 
   return (
     <div className="modal-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-card">
+      <div className="modal-card" ref={modalRef}>
         <div className="ocr-container">
           <header className="ocr-header">
             <div className="ocr-title">
@@ -326,13 +335,9 @@ export default function OcrReader({ onClose, onTextExtracted }) {
                   <p className="step-text">Posicione o código de barras da encomenda dentro do quadro da câmera</p>
                 </div>
                 
-                <div className="camera-guide">
-                  <div className="barcode-guide-frame">
-                    <div className="guide-corner top-left"></div>
-                    <div className="guide-corner top-right"></div>
-                    <div className="guide-corner bottom-left"></div>
-                    <div className="guide-corner bottom-right"></div>
-                  </div>
+                <div className="camera-instruction">
+                  <FaCamera className="camera-icon" />
+                  <p>Centralize o código de barras na tela para uma leitura precisa</p>
                 </div>
                 
                 <div className="ocr-input-container">
@@ -400,12 +405,9 @@ export default function OcrReader({ onClose, onTextExtracted }) {
                   <p className="step-text">Agora fotografe os dados do destinatário</p>
                 </div>
                 
-                <div className="camera-guide">
-                  <div className="document-guide-frame">
-                    <div className="document-guide-text">
-                      <FaUser /> Posicione o documento aqui
-                    </div>
-                  </div>
+                <div className="camera-instruction">
+                  <FaUser className="camera-icon" />
+                  <p>Certifique-se de que todos os dados estejam legíveis na imagem</p>
                 </div>
                 
                 <div className="ocr-input-container">
@@ -450,7 +452,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
               <div className="progress-screen">
                 <div className="progress-indicator">
                   <div className="progress-circle">
-                    <span>{progress}%</span>
+                    <span>{Math.floor(progress)}%</span>
                   </div>
                 </div>
                 <h3>Processando imagem...</h3>
