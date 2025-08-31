@@ -10,10 +10,9 @@
 }
 
 .dashboard-button {
-  flex: 1;
-  min-width: 250px;
-  max-width: 320px;
-  height: 200px;
+  flex: 0 0 48%;
+  width: 100%;
+  height: 90vh;
   border: 2px dashed rgba(6, 182, 212, 0.6); /* 🔹 tracejado */
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.85); /* leve efeito glass */
@@ -22,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 1.5rem;
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 4px 12px rgba(6, 182, 212, 0.08);

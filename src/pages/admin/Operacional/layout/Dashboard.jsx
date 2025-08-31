@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import BtnCadastro from "../components/CadastroOuRetirada/Cadastro/BtnCadastro";
 import BtnRetirada from "../components/CadastroOuRetirada/Retirada/BtnRetirada";
 import OcrReader from "../components/OCR/CadastroEncomenda/OcrCadastro";
+import "./Dashboard.css"; // Certifique-se de importar o CSS
 
 const Dashboard = () => {
   const [showOcr, setShowOcr] = useState(false);
@@ -16,8 +17,12 @@ const Dashboard = () => {
   return (
     <div className="Dashboard">
       <Sidebar />
-      <BtnCadastro onCadastrar={handleCadastrar} />
-      <BtnRetirada onEntregar={handleEntregar} />
+      <main className="main-content">
+        <div className="buttons-container">
+          <BtnCadastro onCadastrar={handleCadastrar} />
+          <BtnRetirada onEntregar={handleEntregar} />
+        </div>
+      </main>
 
       {/* Modal do OCR */}
       {showOcr && (

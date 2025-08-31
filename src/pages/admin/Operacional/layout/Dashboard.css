@@ -1,4 +1,4 @@
-.dashboard-container {
+.Dashboard {
     display: flex;
     min-height: 100vh;
     background-color: #f8fafc;
@@ -6,33 +6,19 @@
 
 .main-content {
     flex: 1;
-    padding: 2rem;
-    margin-left: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: margin-left 0.3s ease;
-}
-
-.sidebar.collapsed ~ .main-content {
-    margin-left: 70px;
 }
 
 
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+    
     .main-content {
-        margin-left: 70px;
         padding: 1rem;
     }
-    
     .buttons-container {
         flex-direction: column;
-        align-items: center;
-    }
-    
-    .dashboard-button {
-        width: 100%;
-        max-width: none;
+        gap: 1.5rem;
     }
 }
