@@ -18,6 +18,7 @@ import "./ModalCadastro.css";
 export default function OcrReader({ onClose, onTextExtracted }) {
   const [preview, setPreview] = useState(null);
   const [barcodeResult, setBarcodeResult] = useState("");
+  // eslint-disable-next-line
   const [recipientText, setRecipientText] = useState("");
   const [loading, setLoading] = useState(false);
   const [isCameraAccessing, setIsCameraAccessing] = useState(false);
