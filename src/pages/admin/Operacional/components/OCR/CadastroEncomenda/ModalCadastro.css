@@ -24,6 +24,41 @@
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
+/* Scrollbar personalizada para o modal */
+.modal-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-card::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+.modal-card::-webkit-scrollbar-thumb {
+  background: var(--border-dark);
+  border-radius: 4px;
+}
+
+.modal-card::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+.ocr-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ocr-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ocr-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.ocr-content::-webkit-scrollbar-thumb:hover {
+  background: var(--border-dark);
+}
+
 /* Modal Backdrop e Card */
 .modal-backdrop {
   position: fixed;
@@ -40,7 +75,7 @@
 
 .modal-card {
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   background: var(--background);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
@@ -49,6 +84,7 @@
   display: flex;
   flex-direction: column;
   max-height: 90vh;
+  overflow-y: auto;
 }
 
 @keyframes fadeIn {
@@ -156,6 +192,7 @@
   gap: 1.5rem;
   overflow-y: auto;
   flex: 1;
+  max-height: calc(90vh - 80px);
 }
 
 /* Guia de etapas */

@@ -27,9 +27,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
   const [phase, setPhase] = useState("barcode");
   const [extractedData, setExtractedData] = useState({
     nome: "",
-    endereco: "",
-    telefone: "",
-    observacoes: ""
+    endereco: ""
   });
   const fileInputRef = useRef(null);
   const modalRef = useRef(null);
@@ -71,8 +69,48 @@ export default function OcrReader({ onClose, onTextExtracted }) {
     }
   };
 
+  // Otimização: Reduzir qualidade da imagem para processamento mais rápido
+  const optimizeImageForOcr = async (imageUrl) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 800;
+        const scale = Math.min(maxWidth / img.width, 1);
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        
+        const ctx = canvas.getContext('2d');
+        
+        // Aplicar filtros para melhorar a legibilidade do texto
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // Melhorar contraste para OCR
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        
+        for (let i = 0; i < data.length; i += 4) {
+          // Converter para escala de cinza
+          const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+          
+          // Aumentar contraste
+          const contrast = 1.5;
+          const newValue = Math.min(255, Math.max(0, (avg - 128) * contrast + 128));
+          
+          data[i] = newValue;     // R
+          data[i + 1] = newValue; // G
+          data[i + 2] = newValue; // B
+        }
+        
+        ctx.putImageData(imageData, 0, 0);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.src = imageUrl;
+    });
+  };
+
   // Seleção de imagem
-  const handlePick = (e) => {
+  const handlePick = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return setError("Nenhuma imagem selecionada");
     if (!file.type.match("image.*")) return setError("Selecione um arquivo de imagem");
@@ -113,7 +151,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
         Quagga.decodeSingle(
           {
             src: image,
-            numOfWorkers: 4,
+            numOfWorkers: 2, // Reduzindo workers para melhor performance
             inputStream: { size: 800 },
             decoder: { readers: ["code_128_reader", "ean_reader", "upc_reader"] },
           },
@@ -149,9 +187,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
     const lines = text.split('\n').filter(line => line.trim().length > 0);
     const data = {
       nome: "",
-      endereco: "",
-      telefone: "",
-      observacoes: ""
+      endereco: ""
     };
     
     // Tentativa de identificar padrões comuns
@@ -170,53 +206,44 @@ export default function OcrReader({ onClose, onTextExtracted }) {
                lowerLine.includes("logradouro") || /\d/.test(line))) {
         data.endereco = line.replace(/^(endereço|rua|av\.?|avenida|logradouro):?/i, '').trim();
       }
-      
-      // Telefone
-      else if (!data.telefone && (lowerLine.includes("tel") || lowerLine.includes("telefone") || 
-               lowerLine.includes("celular") || /(\(\d{2}\)\s?\d{4,5}-\d{4})|(\d{2}\s?\d{4,5}-\d{4})/.test(line))) {
-        data.telefone = line.replace(/^(tel|telefone|celular):?/i, '').trim();
-      }
-      
-      // Observações (se sobrar algo)
-      else {
-        if (data.observacoes) data.observacoes += " | ";
-        data.observacoes += line;
-      }
     });
     
     // Se não encontrou padrões, tenta uma abordagem diferente
     if (!data.nome && lines.length > 0) data.nome = lines[0];
     if (!data.endereco && lines.length > 1) data.endereco = lines[1];
-    if (!data.telefone && lines.length > 2) data.telefone = lines[2];
     
     setExtractedData(data);
     return data;
   };
 
-  // Leitura OCR dos dados do destinatário
+  // Leitura OCR dos dados do destinatário (otimizada)
   const handleScanRecipient = async (image = preview) => {
     if (!image) return;
     setLoading(true);
     setProgress(0);
     setPhase("recipientOcr");
 
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 90) {
-          clearInterval(interval);
-          return 90;
-        }
-        return prev + 5;
-      });
-    }, 100);
-
     try {
-      const result = await Tesseract.recognize(image, "por", { 
+      // Otimizar imagem antes do processamento
+      const optimizedImage = await optimizeImageForOcr(image);
+      
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 90) {
+            clearInterval(interval);
+            return 90;
+          }
+          return prev + 5;
+        });
+      }, 100);
+
+      // Usando Tesseract com configuração padrão (sem caminhos específicos)
+      const result = await Tesseract.recognize(optimizedImage, "por", { 
         logger: m => {
           if (m.status === "recognizing text") {
             setProgress(Math.min(90, Math.floor(m.progress * 100)));
           }
-        } 
+        }
       });
 
       clearInterval(interval);
@@ -232,9 +259,11 @@ export default function OcrReader({ onClose, onTextExtracted }) {
         // Após 2 segundos, vai para confirmação dos dados
         setTimeout(() => setPhase("confirm"), 2000);
       }, 1000);
-    } catch {
-      setError("Erro ao processar a imagem do destinatário.");
+    } catch (err) {
+      console.error("Erro no OCR:", err);
+      setError("Erro ao processar a imagem do destinatário. Tente uma imagem mais nítida.");
       setLoading(false);
+      setPhase("recipient"); // Volta para a fase de captura
     }
   };
 
@@ -248,9 +277,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
     setPhase("barcode");
     setExtractedData({
       nome: "",
-      endereco: "",
-      telefone: "",
-      observacoes: ""
+      endereco: ""
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -275,9 +302,7 @@ export default function OcrReader({ onClose, onTextExtracted }) {
     setPhase("barcode");
     setExtractedData({
       nome: "",
-      endereco: "",
-      telefone: "",
-      observacoes: ""
+      endereco: ""
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -535,28 +560,6 @@ export default function OcrReader({ onClose, onTextExtracted }) {
                         value={extractedData.endereco} 
                         onChange={e => setExtractedData({...extractedData, endereco: e.target.value})} 
                         placeholder="Endereço completo"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="form-row">
-                    <div className="input-group">
-                      <label>Telefone</label>
-                      <input 
-                        type="text" 
-                        value={extractedData.telefone} 
-                        onChange={e => setExtractedData({...extractedData, telefone: e.target.value})} 
-                        placeholder="(00) 00000-0000"
-                      />
-                    </div>
-                    
-                    <div className="input-group">
-                      <label>Observações</label>
-                      <input 
-                        type="text" 
-                        value={extractedData.observacoes} 
-                        onChange={e => setExtractedData({...extractedData, observacoes: e.target.value})} 
-                        placeholder="Informações adicionais"
                       />
                     </div>
                   </div>
